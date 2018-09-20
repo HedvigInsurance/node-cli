@@ -1,5 +1,9 @@
 const webpack = require('webpack')
 const WDS = require('webpack-dev-server')
+const nodemon = require('nodemon')
+const path = require('path')
+const fs = require('fs')
+const chalk = require('chalk')
 const webpackClientProduction = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.client.production')
 const webpackClientDevelopment = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.client.development')
 const webpackServer = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.server')
@@ -11,7 +15,7 @@ const watch = (config) => {
     entryFile: config.clientEntry,
     port: config.port,
     path: config.path,
-    publicPath: config.publicPath,
+    publicPath: config.developmentPublicPath,
     modules: config.modules,
     context: config.context,
   })
@@ -38,6 +42,7 @@ const watch = (config) => {
     print('Server change built successfully ✅')
     print(stats.toString())
   })
+  nodemon({ script: path.resolve(config.path, 'index.js') })
 }
 const build = (config) => {
   print('Building production bundle 🚀')
@@ -45,7 +50,7 @@ const build = (config) => {
     entryFile: config.clientEntry,
     port: config.port,
     path: config.path,
-    publicPath: config.publicPath,
+    publicPath: config.productionPublicPath,
     modules: config.modules,
     context: config.context,
   }))
@@ -79,4 +84,34 @@ const build = (config) => {
   })
 }
 
-module.exports = { watch, build }
+const getAbsoluteFileLocation = (location) => (file) => path.resolve(process.cwd(), location, file)
+const copySurvivalKitFile = (absoluteDirLocation) => {
+  const absoluteLocation = getAbsoluteFileLocation(absoluteDirLocation)
+  return (file) => {
+    process.stdout.write(`Copying ${file}...`)
+    fs.copyFileSync(require.resolve(`@hedviginsurance/web-survival-kit/${file}`), absoluteLocation(file))
+    process.stdout.write(chalk.green(' Done\n'))
+  }
+}
+const ensureConfig = (location) => {
+  if (!location) {
+    process.exitCode = 1
+    console.log('Error: No target directory provided')
+    return
+  }
+
+  const copy = copySurvivalKitFile(location)
+  copy('tsconfig.json')
+  copy('tslint.json')
+  copy('.prettierrc.js')
+  copy('jest.config.js')
+  copy('.babelrc.js')
+
+  process.stdout.write(`Copying hedvig.sample.js...`)
+  fs.copyFileSync(path.resolve(__dirname, '../hedvig.config.sample.js'), path.resolve(process.cwd(), location, 'hedvig.config.sample.js'))
+  process.stdout.write(chalk.green('Done\n'))
+
+  print('Project bootstrapped 👢')
+}
+
+module.exports = { watch, build, bootstrap: ensureConfig }
