@@ -1,0 +1,13 @@
+{
+  "name": "@hedviginsurance/web-cli",
+  "version": "0.1.0",
+  "description": "Tools for managing Hedvig's web stuff",
+  "main": "cli.js",
+  "repository": "https://github.com/HedvigInsurance/web-cli",
+  "author": "Johan Palmfjord <johan.palmfjord@hedvig.com>",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "hedvig": "./cli.js"
+  }
+}
