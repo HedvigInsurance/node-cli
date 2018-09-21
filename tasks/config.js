@@ -74,6 +74,7 @@ const ensure = (location) => {
   }
 
   print('Config is up to date, enjoy responsibly 💜')
+  return true
 }
 
 const init = (location) => {

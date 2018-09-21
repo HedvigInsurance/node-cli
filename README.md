@@ -3,3 +3,12 @@ Used to manage node projects at scale. Handles webpack build and development cyc
 
 ## Usage
 This project is still under heavy development, so to avoid getting stale documentation please see the instructions provided when running `yarn hedvig`, or `./cli`if youre in *this* project.
+
+To initialize a completely new, production ready project;
+```bash
+yarn add @hedviginsurance/cli
+yarn hedvig project:create
+yarn hedvig config:init
+yarn
+yarn watch
+```

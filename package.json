@@ -1,17 +1,20 @@
 {
   "name": "@hedviginsurance/cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tools for managing Hedvig's node stuff",
   "main": "cli.js",
   "repository": "https://github.com/HedvigInsurance/node-cli",
   "author": "Johan Palmfjord <johan.palmfjord@hedvig.com>",
   "license": "MIT",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "hedvig": "./cli.js"
   },
   "dependencies": {
-    "@hedviginsurance/web-survival-kit": "file:../web-survival-kit",
+    "@hedviginsurance/web-survival-kit": "^1.0.0",
     "chalk": "^2.4.1",
     "prompt-sync": "^4.1.6",
     "webpack": "^4.19.1",

@@ -15,6 +15,12 @@ const parseConfig = (file) => {
   if (!config.context) {
     throw new Error('Missing field "context" in config')
   }
+  if (!config.clientPath) {
+    throw new Error('Missing field "clientPath" in config')
+  }
+  if (!config.serverPath) {
+    throw new Error('Missing field "serverPath" in config')
+  }
 
   return config
 }

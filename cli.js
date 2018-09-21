@@ -14,6 +14,9 @@ switch (command) {
   case 'project:build':
     project.build(parseConfig(args[0]))
     break
+  case 'project:create':
+    project.create(args[0])
+    break
 
   case 'config:ensure':
     config.ensure(args[0])
@@ -30,6 +33,8 @@ switch (command) {
         Builds and bundles your TypeScript project
     - project:watch <config file>
         Builds, bundles and serves your TypeScript project
+    - project:create <target directory>
+        Initializes a new, functional, production-ready project
 
     - config:ensure <target directory>
         Ensures you have the latest and greatest configs and required packages
