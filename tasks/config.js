@@ -32,6 +32,7 @@ const ensure = (location) => {
   copy('tslint.json')
   copy('.prettierrc.js')
   copy('jest.config.js')
+  copy('test-setup-enzyme.js')
   copy('.babelrc.js')
 
   process.stdout.write('Updating package.json...')
