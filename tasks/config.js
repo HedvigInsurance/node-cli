@@ -89,6 +89,7 @@ const init = (location) => {
     process.stdout.write(chalk.green('Done\n'))
 
   print(`hedvig.config.js file initialized at ${targetLocation} 🏁`)
+  return true
 }
 
 module.exports = { ensure, init }

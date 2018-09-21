@@ -4,6 +4,7 @@ const nodemon = require('nodemon')
 const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
+const childProcess = require('child_process')
 const webpackClientProduction = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.client.production')
 const webpackClientDevelopment = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.client.development')
 const webpackServer = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.server')
@@ -115,6 +116,13 @@ const create = (location) => {
   }
   print('Config OK')
 
+  print('Initializing config file')
+  if (!config.init(location)) {
+    process.exitCode = 1
+    return
+  }
+  print('Config file OK')
+
   process.stdout.write('Creating src directory...')
   if (fs.existsSync(path.resolve(process.cwd(), location, 'src'))) {
     process.stdout.write(chalk.yellow(' Skipping\n'))
@@ -124,13 +132,23 @@ const create = (location) => {
   }
 
   const copy = copySurvivalKitFile(location)
-  process.stdout.write('Copying sample files...')
+  print('Copying sample files...')
   copy('template/createProject/src/clientEntry.tsx', 'src/clientEntry.tsx')
   copy('template/createProject/src/serverEntry.tsx', 'src/serverEntry.tsx')
   copy('template/createProject/src/App.tsx', 'src/App.tsx')
-  process.stdout.write(chalk.green(' Done\n'))
+  copy('template/createProject/src/App.test.tsx', 'src/App.test.tsx')
+  print(chalk.green('Sample files copied'))
 
-  print('Base base created, enjoy it responsibly 💜')
+  print('Installing libraries')
+  childProcess.exec('yarn', (err)=> {
+    if (err) {
+      process.exitCode = 1
+      printError('Error: ' + err.message)
+      return
+    }
+
+    print('Project created, use it responsibly 💜')
+  })
 }
 
 module.exports = { watch, build, create }

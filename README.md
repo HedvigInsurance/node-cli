@@ -8,7 +8,5 @@ To initialize a completely new, production ready project;
 ```bash
 yarn add @hedviginsurance/cli
 yarn hedvig project:create
-yarn hedvig config:init
-yarn
 yarn watch
 ```
