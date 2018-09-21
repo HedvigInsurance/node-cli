@@ -10,6 +10,7 @@ const webpackServer = require('@hedviginsurance/web-survival-kit/webpack/webpack
 const { print, printError } = require('../utils/io')
 const config = require('./config')
 
+const formatStats = (process, stats) => `[${process}] ----> ${stats.toString().split('\n').join(`\n[${process}] ----> `)}`
 const watch = (config) => {
   print('Starting development server, watching for changes 👀')
   const port = config.port || 8081
@@ -34,7 +35,7 @@ const watch = (config) => {
   }))
 
   const wds = new WDS(clientCompiler, clientConfig.devServer)
-  wds.listen(clientConfig.devServer.port, () => {
+  wds.listen(clientConfig.devServer.port, undefined, () => {
     print(`WDS listening on ${clientConfig.devServer.port} 👂`)
   })
 
@@ -44,8 +45,8 @@ const watch = (config) => {
       return
     }
 
+    print(formatStats('server', stats))
     print('Server change built successfully ✅')
-    print(stats.toString())
   })
   nodemon({ script: path.resolve(config.serverPath, 'index.js') })
 }
@@ -76,8 +77,8 @@ const build = (config) => {
       return
     }
 
+    print(formatStats('client', stats))
     print('Client built successfully ✅')
-    print(stats.toString())
   })
   serverCompiler.run((err, stats) => {
     if (err) {
@@ -86,8 +87,8 @@ const build = (config) => {
       return
     }
 
+    print(formatStats('server', stats))
     print('Server built successfully ✅')
-    print(stats.toString())
   })
 }
 
