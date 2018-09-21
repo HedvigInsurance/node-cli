@@ -137,7 +137,7 @@ const create = (location) => {
   copy('template/createProject/src/serverEntry.tsx', 'src/serverEntry.tsx')
   copy('template/createProject/src/App.tsx', 'src/App.tsx')
   copy('template/createProject/src/App.test.tsx', 'src/App.test.tsx')
-  print(chalk.green('Config files copied'))
+  print(chalk.green('Sample files copied'))
 
   print('Installing libraries')
   childProcess.exec('yarn', (err)=> {
