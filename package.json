@@ -1,5 +1,5 @@
 {
-  "name": "@hedviginsurance/web-cli",
+  "name": "@hedviginsurance/cli",
   "version": "0.1.0",
   "description": "Tools for managing Hedvig's web stuff",
   "main": "cli.js",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@hedviginsurance/web-survival-kit": "file:../web-survival-kit",
     "chalk": "^2.4.1",
+    "prompt-sync": "^4.1.6",
     "webpack": "^4.19.1",
     "webpack-dev-server": "^3.1.8"
   },
