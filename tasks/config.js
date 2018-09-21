@@ -12,9 +12,9 @@ const verifyResponse = (response) => {
   return true
 }
 const getAbsoluteFileLocation = (location) => (file) => path.resolve(process.cwd(), location, file)
-const copySurvivalKitFile = (absoluteDirLocation, target) => {
+const copySurvivalKitFile = (absoluteDirLocation) => {
   const absoluteLocation = getAbsoluteFileLocation(absoluteDirLocation)
-  return (file) => {
+  return (file, target) => {
     process.stdout.write(`Copying ${file}...`)
     fs.copyFileSync(require.resolve(`@hedviginsurance/web-survival-kit/${file}`), absoluteLocation(target || file))
     process.stdout.write(chalk.green(' Done\n'))
@@ -34,6 +34,7 @@ const ensure = (location) => {
   copy('jest.config.js')
   copy('test-setup-enzyme.js')
   copy('.babelrc.js')
+  copy('template/createProject/.travis.yml', '.travis.yml')
 
   process.stdout.write('Updating package.json...')
   try {
@@ -70,7 +71,7 @@ const ensure = (location) => {
       print('Config is up to date, except package.json. Enjoy responsibly 💜')
       return
     }
-    copy('template/package.json', 'package.json')
+    copy('template/createProject/package.json', 'package.json')
   }
 
   print('Config is up to date, enjoy responsibly 💜')
@@ -85,8 +86,8 @@ const init = (location) => {
 
   const targetLocation = path.resolve(process.cwd(), location, 'hedvig.config.js')
   process.stdout.write(`Copying hedvig.config.js...`)
-  fs.copyFileSync(path.resolve(__dirname, '../hedvig.config.sample.js'), targetLocation),
-    process.stdout.write(chalk.green('Done\n'))
+  fs.copyFileSync(path.resolve(__dirname, '../hedvig.config.sample.js'), targetLocation)
+  process.stdout.write(chalk.green('Done\n'))
 
   print(`hedvig.config.js file initialized at ${targetLocation} 🏁`)
 }
