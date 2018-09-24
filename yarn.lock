@@ -596,9 +596,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@hedviginsurance/web-survival-kit@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@hedviginsurance/web-survival-kit/-/web-survival-kit-1.1.0.tgz#81732d168dc0848c067fcd8565e3693568609f73"
+"@hedviginsurance/web-survival-kit@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@hedviginsurance/web-survival-kit/-/web-survival-kit-1.2.0.tgz#f3e457cc8f34d341ef7c265d62d6fba8e46aa51e"
   dependencies:
     "@babel/core" "^7.1.0"
     "@babel/plugin-transform-modules-commonjs" "^7.1.0"
