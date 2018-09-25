@@ -40,7 +40,7 @@ const ensure = (location) => {
   try {
     const packageTarget = path.resolve(process.cwd(), location, 'package.json')
     const originalPackage = JSON.parse(fs.readFileSync(packageTarget))
-    const template = require('@hedviginsurance/web-survival-kit/template/package.json')
+    const template = require('@hedviginsurance/web-survival-kit/template/createProject/package.json')
     const newPackage = {
       ...originalPackage,
       ...template,
