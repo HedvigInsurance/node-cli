@@ -602,9 +602,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@hedviginsurance/web-survival-kit@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@hedviginsurance/web-survival-kit/-/web-survival-kit-1.4.0.tgz#695293ddcefa38c8fdeda3a2dd74d4b849609f3a"
+"@hedviginsurance/web-survival-kit@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@hedviginsurance/web-survival-kit/-/web-survival-kit-1.4.1.tgz#4cf3ab429dcc97ee5ff77b5799616a389f576db2"
   dependencies:
     "@babel/core" "^7.1.0"
     "@babel/plugin-syntax-dynamic-import" "^7.0.0"

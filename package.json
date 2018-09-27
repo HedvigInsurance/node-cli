@@ -14,7 +14,7 @@
     "hedvig": "./cli.js"
   },
   "dependencies": {
-    "@hedviginsurance/web-survival-kit": "^1.4.0",
+    "@hedviginsurance/web-survival-kit": "^1.4.1",
     "chalk": "^2.4.1",
     "prompt-sync": "^4.1.6",
     "webpack": "^4.19.1",
