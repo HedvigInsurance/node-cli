@@ -1,6 +1,6 @@
 {
   "name": "@hedviginsurance/cli",
-  "version": "1.4.2",
+  "version": "2.0.0",
   "description": "Tools for managing Hedvig's node stuff",
   "main": "cli.js",
   "repository": "https://github.com/HedvigInsurance/node-cli",
