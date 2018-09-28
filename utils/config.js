@@ -1,4 +1,8 @@
 const fs = require('fs')
+const path = require('path')
+const prompt = require('prompt-sync')
+const chalk = require('chalk')
+const { print, verifyResponse } = require('./io')
 
 const parseConfig = (file) => {
   if (!fs.existsSync(file)) {
@@ -25,4 +29,44 @@ const parseConfig = (file) => {
   return config
 }
 
-module.exports = { parseConfig }
+const ensurePackageJson = (copy) => (sourcePackageFile, location) => {
+  process.stdout.write('Updating package.json...')
+  try {
+    const packageTarget = path.resolve(process.cwd(), location, 'package.json')
+    const originalPackage = JSON.parse(fs.readFileSync(packageTarget, 'UTF8'))
+    const template = require(sourcePackageFile)
+    const newPackage = {
+      ...originalPackage,
+      ...template,
+      scripts: {
+        ...originalPackage.scripts,
+        ...template.scripts,
+      },
+      dependencies: {
+        ...originalPackage.dependencies,
+        ...template.dependencies,
+      },
+      devDependencies: {
+        ...originalPackage.devDependencies,
+        ...template.devDependencies,
+      },
+      'lint-staged': {
+        ...originalPackage['lint-staged'],
+        ...template['lint-staged'],
+      }
+    }
+    fs.writeFileSync(packageTarget, JSON.stringify(newPackage, undefined, 2))
+    process.stdout.write(chalk.green(' Done\n'))
+  } catch (_e) {
+    const response = prompt({})(
+      `Could not find, parse or write package.json. Do you wish to create a new one? ${chalk.bold('This WILL overwrite any existing package.json file!')} [y/n]: `
+    )
+    if (!verifyResponse(response)) {
+      print('Config is up to date, except package.json')
+      return
+    }
+    copy('package.json')
+  }
+}
+
+module.exports = { parseConfig, ensurePackageJson }

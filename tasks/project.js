@@ -1,15 +1,56 @@
+
 const webpack = require('webpack')
 const WDS = require('webpack-dev-server')
 const nodemon = require('nodemon')
 const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
+const prompt = require('prompt-sync')
 const childProcess = require('child_process')
 const webpackClientProduction = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.client.production')
 const webpackClientDevelopment = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.client.development')
 const webpackServer = require('@hedviginsurance/web-survival-kit/webpack/webpack.config.server')
-const { print, printError } = require('../utils/io')
-const config = require('./config')
+const { print, printError, copyFileFromPackage, verifyResponse } = require('../utils/io')
+const { ensurePackageJson } = require('../utils/config')
+
+const copySurvivalKitFile = copyFileFromPackage('@hedviginsurance/web-survival-kit')
+
+const configEnsure = (location) => {
+  if (!location) {
+    process.exitCode = 1
+    console.log('Error: No target directory provided')
+    return
+  }
+
+  const copy = copySurvivalKitFile(location)
+  copy('tsconfig.json')
+  copy('tslint.json')
+  copy('.prettierrc.js')
+  copy('jest.config.js')
+  copy('test-setup-enzyme.js')
+  copy('.babelrc.js')
+  copy('template/createProject/.travis.yml', '.travis.yml')
+
+  ensurePackageJson(copy)('@hedviginsurance/web-survival-kit/template/createProject/package.json', location)
+
+  print('Config is up to date, enjoy responsibly 💜')
+  return true
+}
+
+const configInit = (location) => {
+  const response = prompt({})('This may overwrite existing config, u sure? [yes/no]: ')
+  if (!verifyResponse(response)) {
+    return
+  }
+
+  const targetLocation = path.resolve(process.cwd(), location, 'hedvig.config.js')
+  process.stdout.write(`Copying hedvig.config.js...`)
+  fs.copyFileSync(path.resolve(__dirname, '../hedvig.config.sample.js'), targetLocation)
+  process.stdout.write(chalk.green('Done\n'))
+
+  print(`hedvig.config.js file initialized at ${targetLocation} 🏁`)
+  return true
+}
 
 const formatStats = (process, stats) => `[${process}] ----> ${stats.toString().split('\n').join(`\n[${process}] ----> `)}`
 const watch = (config) => {
@@ -93,16 +134,6 @@ const build = (config) => {
   })
 }
 
-const getAbsoluteFileLocation = (location) => (file) => path.resolve(process.cwd(), location, file)
-const copySurvivalKitFile = (absoluteDirLocation) => {
-  const absoluteLocation = getAbsoluteFileLocation(absoluteDirLocation)
-  return (source, target = source) => {
-    process.stdout.write(`Copying ${target}...`)
-    fs.copyFileSync(require.resolve(`@hedviginsurance/web-survival-kit/${source}`), absoluteLocation(target))
-    process.stdout.write(chalk.green(' Done\n'))
-  }
-}
-
 const create = (location) => {
   if (!location) {
     process.exitCode = 1
@@ -111,14 +142,14 @@ const create = (location) => {
   }
 
   print('Ensuring config')
-  if (!config.ensure(location)) {
+  if (!configEnsure(location)) {
     process.exitCode = 1
     return
   }
   print('Config OK')
 
   print('Initializing config file')
-  if (!config.init(location)) {
+  if (!configInit(location)) {
     process.exitCode = 1
     return
   }
@@ -152,4 +183,4 @@ const create = (location) => {
   })
 }
 
-module.exports = { watch, build, create }
+module.exports = { configEnsure, configInit, watch, build, create }

@@ -7,6 +7,15 @@ This project is still under heavy development, so to avoid getting stale documen
 To initialize a completely new, production ready project;
 ```bash
 yarn add @hedviginsurance/cli
-yarn hedvig project:create
+yarn hedvig project:create .
 yarn watch
 ```
+
+
+To initialize a new library project;
+```bash
+yarn add @hedviginsurance/cli
+yarn hedvig lib:create .
+```
+
+✅
