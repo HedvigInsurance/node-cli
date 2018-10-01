@@ -74,6 +74,7 @@ const watch = (config) => {
     context: config.context,
     nodeEnv: 'development',
     mode: 'development',
+    envVars: config.envVars,
   }))
 
   const wds = new WDS(clientCompiler, clientConfig.devServer)
@@ -110,6 +111,7 @@ const build = (config) => {
     context: config.context,
     nodeEnv: 'production',
     mode: 'production',
+    envVars: config.envVars,
   }))
 
   clientCompiler.run((err, stats) => {
