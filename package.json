@@ -1,6 +1,6 @@
 {
   "name": "@hedviginsurance/cli",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Tools for managing Hedvig's node stuff",
   "main": "cli.js",
   "repository": "https://github.com/HedvigInsurance/node-cli",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@hedviginsurance/libkit": "^1.0.1",
-    "@hedviginsurance/web-survival-kit": "^1.4.1",
+    "@hedviginsurance/web-survival-kit": "^1.5.0",
     "chalk": "^2.4.1",
     "fs-extra": "^7.0.0",
     "prompt-sync": "^4.1.6",

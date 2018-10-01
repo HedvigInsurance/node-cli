@@ -606,9 +606,9 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@hedviginsurance/libkit/-/libkit-1.0.1.tgz#efe04ae3c88b302a30d44fd191f259ba57d19487"
 
-"@hedviginsurance/web-survival-kit@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@hedviginsurance/web-survival-kit/-/web-survival-kit-1.4.1.tgz#4cf3ab429dcc97ee5ff77b5799616a389f576db2"
+"@hedviginsurance/web-survival-kit@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@hedviginsurance/web-survival-kit/-/web-survival-kit-1.5.0.tgz#458d32e02909bf592d93e1c52f423931574f3d4b"
   dependencies:
     "@babel/core" "^7.1.0"
     "@babel/plugin-syntax-dynamic-import" "^7.0.0"
