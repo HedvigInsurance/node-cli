@@ -9,4 +9,5 @@ module.exports = {
   port: undefined, // The WDS port
   developmentPublicPath: undefined, // Client public path during development, i.e. "http://0.0.0.0:8081/". Port must match the port directive
   productionPublicPath: undefined, //  Client public path in production, i.e. "/assets/"
+  envVars: undefined, // Array of environment variables to pass through webpack. I.e. ['FOO', 'BAR']
 }
