@@ -82,7 +82,7 @@ const watch = (config) => {
     print(`WDS listening on ${clientConfig.devServer.port} 👂`)
   })
 
-  serverCompiler.watch({}, (err, stats) => {
+  const watcher = serverCompiler.watch({}, (err, stats) => {
     if (err) {
       printError(`Server change failed to build`, err)
       return
@@ -92,6 +92,15 @@ const watch = (config) => {
     print('Server change built successfully ✅')
   })
   nodemon({ script: path.resolve(config.serverPath, 'index.js') })
+
+  process.on('SIGINT', () => {
+    wds.close(() => {
+      watcher.close(() => {
+        nodemon.emit('quit')
+        process.exit(130)
+      })
+    })
+  })
 }
 const build = (config) => {
   print('Building production bundle 🏗')
