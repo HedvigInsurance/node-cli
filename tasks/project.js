@@ -111,6 +111,7 @@ const build = (config) => {
     publicPath: config.productionPublicPath || '/assets/',
     modules: config.modules,
     context: config.context,
+    analyze: config.analyze,
   }))
   const serverCompiler = webpack(webpackServer({
     entryFile: config.serverEntry,
