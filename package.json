@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@hedviginsurance/libkit": "^1.0.1",
-    "@hedviginsurance/web-survival-kit": "^1.8.2",
+    "@hedviginsurance/web-survival-kit": "^1.8.3",
     "chalk": "^2.4.1",
     "fs-extra": "^7.0.0",
     "prompt-sync": "^4.1.6",
