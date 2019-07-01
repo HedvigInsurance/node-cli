@@ -17,7 +17,7 @@
     "@hedviginsurance/libkit": "^1.0.1",
     "@hedviginsurance/web-survival-kit": "^1.8.3",
     "chalk": "^2.4.1",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^8.1.0",
     "prompt-sync": "^4.1.6",
     "thread-loader": "^2.1.2",
     "webpack": "4.19.1",
